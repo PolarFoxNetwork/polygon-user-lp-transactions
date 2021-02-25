@@ -1,0 +1,37 @@
+type User @entity {
+  id: ID!
+  liquidityPositions: [LiquidityPosition!] @derivedFrom(field: "user")
+}
+
+type LiquidityPosition @entity {
+  id: ID!
+  user: User!
+  poolAddress: Bytes!
+  balance: BigDecimal!
+  balanceFromMintBurn: BigDecimal!
+  poolProviderName: PoolProvider!
+}
+
+type UserLiquidityPositionDayData @entity {
+  id: ID!
+  date: Int!
+  userAddress: Bytes!
+  poolAddress: Bytes!
+  balance: BigDecimal!
+  balanceFromMintBurn: BigDecimal!
+  poolProviderName: PoolProvider!
+}
+
+type Exception @entity {
+  id: ID!
+  addrs: Bytes!
+  txHash: Bytes!
+  message: String!
+}
+
+enum PoolProvider {
+  Balancer
+  Uniswap
+  Sushiswap
+  VALUE
+}
