@@ -6,34 +6,6 @@ import {
   DataSourceContext
 } from "@graphprotocol/graph-ts";
 
-export class BalancerBPool extends DataSourceTemplate {
-  static create(address: Address): void {
-    DataSourceTemplate.create("BalancerBPool", [address.toHex()]);
-  }
-
-  static createWithContext(address: Address, context: DataSourceContext): void {
-    DataSourceTemplate.createWithContext(
-      "BalancerBPool",
-      [address.toHex()],
-      context
-    );
-  }
-}
-
-export class ValueBPool extends DataSourceTemplate {
-  static create(address: Address): void {
-    DataSourceTemplate.create("ValueBPool", [address.toHex()]);
-  }
-
-  static createWithContext(address: Address, context: DataSourceContext): void {
-    DataSourceTemplate.createWithContext(
-      "ValueBPool",
-      [address.toHex()],
-      context
-    );
-  }
-}
-
 export class UniswapPair extends DataSourceTemplate {
   static create(address: Address): void {
     DataSourceTemplate.create("UniswapPair", [address.toHex()]);
@@ -42,20 +14,6 @@ export class UniswapPair extends DataSourceTemplate {
   static createWithContext(address: Address, context: DataSourceContext): void {
     DataSourceTemplate.createWithContext(
       "UniswapPair",
-      [address.toHex()],
-      context
-    );
-  }
-}
-
-export class SushiswapPair extends DataSourceTemplate {
-  static create(address: Address): void {
-    DataSourceTemplate.create("SushiswapPair", [address.toHex()]);
-  }
-
-  static createWithContext(address: Address, context: DataSourceContext): void {
-    DataSourceTemplate.createWithContext(
-      "SushiswapPair",
       [address.toHex()],
       context
     );

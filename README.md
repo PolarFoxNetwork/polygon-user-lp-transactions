@@ -8,6 +8,12 @@ Supports Balancer, Sushiswap and Uniswap -- more to be added later.
 This is one of the subgraphs used for [APY Vision](https://apy.vision)
 
 #### Building
+
+First, change your node version
+```
+nvm use 10.16.3
+```
+
 To generate the mapping ts files, please do:
 ```
 yarn codegen
@@ -18,7 +24,7 @@ To deploy, please use:
     --debug \
     --node https://api.thegraph.com/deploy/ \
     --ipfs https://api.thegraph.com/ipfs/ \
-    apyvision/amm-lp-shares-v0
+    apyvision/quickswap-amm-shares
 ```
 
 
@@ -28,6 +34,7 @@ To deploy, please use:
 User => id, LiquidityPositions
 LiquidityPosition => id, poolAddress, balance, poolProviderName (one of Balancer, Uniswap, Sushiswap and YFV)
 ```
+
 
 #### Contributions
 If you have other AMMs to add (ie. Mooniswap, Moonswap, etc), please feel free to open a PR!
