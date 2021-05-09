@@ -6,14 +6,42 @@ import {
   DataSourceContext
 } from "@graphprotocol/graph-ts";
 
-export class UniswapPair extends DataSourceTemplate {
+export class QuickswapPair extends DataSourceTemplate {
   static create(address: Address): void {
-    DataSourceTemplate.create("UniswapPair", [address.toHex()]);
+    DataSourceTemplate.create("QuickswapPair", [address.toHex()]);
   }
 
   static createWithContext(address: Address, context: DataSourceContext): void {
     DataSourceTemplate.createWithContext(
-      "UniswapPair",
+      "QuickswapPair",
+      [address.toHex()],
+      context
+    );
+  }
+}
+
+export class SushiswapPair extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("SushiswapPair", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "SushiswapPair",
+      [address.toHex()],
+      context
+    );
+  }
+}
+
+export class ComethPair extends DataSourceTemplate {
+  static create(address: Address): void {
+    DataSourceTemplate.create("ComethPair", [address.toHex()]);
+  }
+
+  static createWithContext(address: Address, context: DataSourceContext): void {
+    DataSourceTemplate.createWithContext(
+      "ComethPair",
       [address.toHex()],
       context
     );

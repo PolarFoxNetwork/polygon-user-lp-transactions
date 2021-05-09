@@ -1,11 +1,12 @@
 import {
   Exception,
-  LiquidityPosition,
+  LiquidityPosition, LPTransfer, MintBurnLog,
   User,
   UserLiquidityPositionDayData
 } from "../generated/schema";
 import {Address, BigDecimal, BigInt, Bytes, ethereum, log} from "@graphprotocol/graph-ts/index";
 import {ERC20} from "../generated/templates/UniswapPair/ERC20";
+import {Transfer} from "../generated/UniswapFactory/ERC20";
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 export const MINUS_ONE = BigInt.fromI32(-1);
@@ -60,7 +61,7 @@ export function convertTokenToDecimal(tokenAmount: BigInt, exchangeDecimals: Big
   return tokenAmount.toBigDecimal().div(exponentToBigDecimal(exchangeDecimals));
 }
 
-export function createOrUpdate(providerName: string, poolAddrs: Address, userAddrs: Address, addToMintBurnVal: BigInt): LiquidityPosition {
+export function createOrUpdateLiquidityPosition(providerName: string, poolAddrs: Address, userAddrs: Address, addToMintBurnVal: BigInt): LiquidityPosition {
   let userId = userAddrs.toHexString()
 
   let user = User.load(userId)
@@ -93,4 +94,40 @@ export function createOrUpdate(providerName: string, poolAddrs: Address, userAdd
 
 function getBalanceOf(poolAddrs: Address, userAddrs: Address): BigDecimal {
   return convertTokenToDecimal(ERC20.bind(poolAddrs).balanceOf(userAddrs), BI_18);
+}
+
+export function createMintBurnLog(event: ethereum.Event, userAddrs: Address, value: BigInt): void {
+  let transactionHash = event.transaction.hash;
+  let txHash = transactionHash.toHexString()
+  let number = Date.now() as i64
+  let id = txHash
+    .concat('-')
+    .concat(userAddrs.toHexString())
+    .concat(number as string)
+  let mintBurnLog = new MintBurnLog(id)
+  mintBurnLog.userAddress = userAddrs
+  mintBurnLog.poolAddress = event.address
+  mintBurnLog.transactionHash = transactionHash
+  mintBurnLog.blockNumber = event.block.number
+  mintBurnLog.value = convertTokenToDecimal(value, BI_18)
+  mintBurnLog.save()
+}
+
+export function createTransferEvent(event: ethereum.Event, userAddrs: Address, from: Bytes, to: Bytes, value: BigInt): void {
+  let transactionHash = event.transaction.hash;
+  let txHash = transactionHash.toHexString()
+  let id = txHash
+    .concat('-')
+    .concat(userAddrs.toHexString())
+
+  let transfer = new LPTransfer(id)
+  transfer.userAddress = userAddrs
+  transfer.poolAddress = event.address
+  transfer.transactionHash = transactionHash
+  transfer.blockNumber = event.block.number
+  transfer.from = from
+  transfer.to = to
+  transfer.value = convertTokenToDecimal(value, BI_18)
+  transfer.timestamp = event.block.timestamp
+  transfer.save()
 }

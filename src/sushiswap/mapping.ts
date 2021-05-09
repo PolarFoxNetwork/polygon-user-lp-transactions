@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import {Address, log} from '@graphprotocol/graph-ts'
-import {Transfer} from '../../generated/templates/UniswapPair/Pair'
+import {Transfer} from '../../generated/templates/SushiswapPair/Pair'
 import {
   ADDRESS_ZERO,
   createOrUpdateLiquidityPosition,
@@ -10,7 +10,7 @@ import {
   ZERO_BI
 } from "../util";
 
-let PROVIDER_NAME = "Quickswap";
+let PROVIDER_NAME = "Sushiswap";
 
 export function handleTransfer(event: Transfer): void {
   let poolAddress = event.address;
