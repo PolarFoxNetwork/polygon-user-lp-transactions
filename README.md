@@ -24,7 +24,7 @@ To deploy, please use:
     --debug \
     --node https://api.thegraph.com/deploy/ \
     --ipfs https://api.thegraph.com/ipfs/ \
-    apyvision/quickswap-amm-shares
+    apyvision/quickswap-amm-shares-v0
 ```
 
 

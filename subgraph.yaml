@@ -5,6 +5,52 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
+    name: DfynFactory
+    network: matic
+    source:
+      address: '0xE7Fb3e833eFE5F9c441105EB65Ef8b261266423B'
+      abi: Factory
+      startBlock: 5436831
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/dfyn/factory.ts
+      entities:
+        - Pair
+        - Token
+      abis:
+        - name: Factory
+          file: ./abis/uniswap/factory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handleNewPair
+  - kind: ethereum/contract
+    name: ElkFactory
+    network: matic
+    source:
+      address: '0xE3BD06c7ac7E1CeB17BdD2E5BA83E40D1515AF2a'
+      abi: Factory
+      startBlock: 13103735
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/elk/factory.ts
+      entities:
+        - Pair
+        - Token
+      abis:
+        - name: Factory
+          file: ./abis/uniswap/factory.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: PairCreated(indexed address,indexed address,address,uint256)
+          handler: handleNewPair
+  - kind: ethereum/contract
     name: QuickswapFactory
     network: matic
     source:
@@ -74,6 +120,52 @@ dataSources:
         - event: PairCreated(indexed address,indexed address,address,uint256)
           handler: handleNewPair
 templates:
+  - kind: ethereum/contract
+    name: DfynPair
+    network: matic
+    source:
+      abi: Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/dfyn/mapping.ts
+      entities:
+        - User
+        - UserLiquidityPositionDayData
+        - LiquidityPosition
+        - LPTransfer
+      abis:
+        - name: Pair
+          file: ./abis/uniswap/pair.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+  - kind: ethereum/contract
+    name: ElkPair
+    network: matic
+    source:
+      abi: Pair
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      file: ./src/elk/mapping.ts
+      entities:
+        - User
+        - UserLiquidityPositionDayData
+        - LiquidityPosition
+        - LPTransfer
+      abis:
+        - name: Pair
+          file: ./abis/uniswap/pair.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
   - kind: ethereum/contract
     name: QuickswapPair
     network: matic
