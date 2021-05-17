@@ -27,6 +27,7 @@ export function updateDayData(lp: LiquidityPosition, userAddress: Address, event
     dayData = new UserLiquidityPositionDayData(dayPairID)
     dayData.date = dayStartTimestamp
     dayData.poolProviderName = lp.poolProviderName
+    dayData.poolProviderKey = lp.poolProviderKey
     dayData.poolAddress = lp.poolAddress
     dayData.userAddress = userAddress
   }
@@ -61,7 +62,7 @@ export function convertTokenToDecimal(tokenAmount: BigInt, exchangeDecimals: Big
   return tokenAmount.toBigDecimal().div(exponentToBigDecimal(exchangeDecimals));
 }
 
-export function createOrUpdateLiquidityPosition(providerName: string, poolAddrs: Address, userAddrs: Address, addToMintBurnVal: BigInt): LiquidityPosition {
+export function createOrUpdateLiquidityPosition(poolProviderKey: string, poolAddrs: Address, userAddrs: Address, addToMintBurnVal: BigInt): LiquidityPosition {
   let userId = userAddrs.toHexString()
 
   let user = User.load(userId)
@@ -81,7 +82,8 @@ export function createOrUpdateLiquidityPosition(providerName: string, poolAddrs:
     lp.poolAddress = poolAddrs
     lp.user = user.id
     lp.balanceFromMintBurn = ZERO_BI.toBigDecimal()
-    lp.poolProviderName = providerName
+    lp.poolProviderKey = poolProviderKey
+    lp.poolProviderName = getProviderName(poolProviderKey)
   }
 
   let mintBurnValToAdd = convertTokenToDecimal(addToMintBurnVal, BI_18);
@@ -90,6 +92,22 @@ export function createOrUpdateLiquidityPosition(providerName: string, poolAddrs:
   lp.save()
 
   return lp as LiquidityPosition
+}
+
+function getProviderName(poolProviderKey: string): string {
+  if (poolProviderKey == 'quickswap_matic') {
+    return 'Quickswap'
+  } else if (poolProviderKey == 'sushiswap_matic') {
+    return 'Sushiswap'
+  } else if (poolProviderKey == 'cometh_matic') {
+    return 'Cometh'
+  } else if (poolProviderKey == 'elk_matic') {
+    return 'Elk'
+  } else if (poolProviderKey == 'dfyn_matic') {
+    return 'Dfyn'
+  } else {
+    throw 'Unknown pool provider key, please define it!'
+  }
 }
 
 function getBalanceOf(poolAddrs: Address, userAddrs: Address): BigDecimal {

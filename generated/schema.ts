@@ -137,6 +137,15 @@ export class LiquidityPosition extends Entity {
   set poolProviderName(value: string) {
     this.set("poolProviderName", Value.fromString(value));
   }
+
+  get poolProviderKey(): string {
+    let value = this.get("poolProviderKey");
+    return value.toString();
+  }
+
+  set poolProviderKey(value: string) {
+    this.set("poolProviderKey", Value.fromString(value));
+  }
 }
 
 export class UserLiquidityPositionDayData extends Entity {
@@ -227,6 +236,15 @@ export class UserLiquidityPositionDayData extends Entity {
 
   set poolProviderName(value: string) {
     this.set("poolProviderName", Value.fromString(value));
+  }
+
+  get poolProviderKey(): string {
+    let value = this.get("poolProviderKey");
+    return value.toString();
+  }
+
+  set poolProviderKey(value: string) {
+    this.set("poolProviderKey", Value.fromString(value));
   }
 }
 

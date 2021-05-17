@@ -9,7 +9,8 @@ type LiquidityPosition @entity {
   poolAddress: Bytes!
   balance: BigDecimal!
   balanceFromMintBurn: BigDecimal!
-  poolProviderName: PoolProvider!
+  poolProviderName: PoolProviderName!
+  poolProviderKey: PoolProviderKey!
 }
 
 type UserLiquidityPositionDayData @entity {
@@ -19,7 +20,8 @@ type UserLiquidityPositionDayData @entity {
   poolAddress: Bytes!
   balance: BigDecimal!
   balanceFromMintBurn: BigDecimal!
-  poolProviderName: PoolProvider!
+  poolProviderName: PoolProviderName!
+  poolProviderKey: PoolProviderKey!
 }
 
 type LPTransfer @entity {
@@ -50,8 +52,18 @@ type Exception @entity {
   message: String!
 }
 
-enum PoolProvider {
+enum PoolProviderName {
   Quickswap
   Sushiswap
   Cometh
+  Elk
+  Dfyn
+}
+
+enum PoolProviderKey {
+  quickswap_matic
+  sushiswap_matic
+  cometh_matic
+  elk_matic
+  dfyn_matic
 }
