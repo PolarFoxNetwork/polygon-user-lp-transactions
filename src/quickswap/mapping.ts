@@ -1,6 +1,5 @@
 /* eslint-disable prefer-const */
 import {Address, log} from '@graphprotocol/graph-ts'
-import {Transfer} from '../../generated/templates/UniswapPair/Pair'
 import {
   ADDRESS_ZERO,
   createOrUpdateLiquidityPosition,
@@ -9,6 +8,7 @@ import {
   updateDayData,
   ZERO_BI
 } from "../util";
+import {Transfer} from "../../generated/templates/QuickswapPair/Pair";
 
 let PROVIDER_KEY = "quickswap_matic";
 
@@ -23,27 +23,5 @@ export function handleTransfer(event: Transfer): void {
 
   maybeCreateUserLpTransaction(event, initiator, poolAddress)
 
-  if (to.toHexString() == ADDRESS_ZERO) { // BURN
-    log.warning("[{}] BURN event for tx {} for user {} with amount {}", [PROVIDER_KEY, event.transaction.hash.toHexString(), from.toHexString(), amt.toString()])
-
-    updateDayData(createOrUpdateLiquidityPosition(PROVIDER_KEY, poolAddress, from, amt.times(MINUS_ONE)), from, event);
-    createTransferEvent(event, from, from, to, amt)
-
-  } else if (from.toHexString() == ADDRESS_ZERO) { // MINT
-    log.warning("[{}] MINT event for tx {} for user {} with amount {}", [PROVIDER_KEY, event.transaction.hash.toHexString(), to.toHexString(), amt.toString()])
-
-    updateDayData(createOrUpdateLiquidityPosition(PROVIDER_KEY, poolAddress, to, amt), to, event);
-    createTransferEvent(event, to, from, to, amt)
-
-  } else { // TRANSFER
-    log.warning("[{}] TRANSFER event for tx {} for user {} with amount {}", [PROVIDER_KEY, event.transaction.hash.toHexString(), to.toHexString(), amt.toString()])
-
-    updateDayData(createOrUpdateLiquidityPosition(PROVIDER_KEY, poolAddress, to, ZERO_BI), to, event);
-    updateDayData(createOrUpdateLiquidityPosition(PROVIDER_KEY, poolAddress, from, ZERO_BI), from, event);
-    // we don't need to keep track of the initiator here because the transfer logs will have logged the lp token transfer event
-    createTransferEvent(event, from, from, to, amt)
-    createTransferEvent(event, to, from, to, amt)
-
-  }
 }
 

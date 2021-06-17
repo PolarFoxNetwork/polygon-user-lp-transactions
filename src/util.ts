@@ -8,7 +8,7 @@ import {
   UserLPTransaction
 } from "../generated/schema";
 import {Address, BigDecimal, BigInt, Bytes, ethereum, log} from "@graphprotocol/graph-ts/index";
-import {ERC20} from "../generated/templates/UniswapPair/ERC20";
+import {ERC20} from "../generated/templates/QuickswapPair/ERC20";
 
 export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
 export const MINUS_ONE = BigInt.fromI32(-1);

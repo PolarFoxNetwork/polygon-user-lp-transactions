@@ -1,7 +1,7 @@
 /* eslint-disable prefer-const */
-import {PairCreated} from '../../generated/UniswapFactory/Factory'
 import {log} from "@graphprotocol/graph-ts/index";
 import {QuickswapPair as PairTemplate} from '../../generated/templates'
+import {PairCreated} from "../../generated/QuickswapFactory/Factory";
 
 export function handleNewPair(event: PairCreated): void {
   // create the tracked contract based on the template
