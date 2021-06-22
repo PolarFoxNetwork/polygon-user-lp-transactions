@@ -132,9 +132,8 @@ templates:
       file: ./src/dfyn/mapping.ts
       entities:
         - User
-        - UserLiquidityPositionDayData
+        - UserLPTransaction
         - LiquidityPosition
-        - LPTransfer
       abis:
         - name: Pair
           file: ./abis/uniswap/pair.json
@@ -155,9 +154,8 @@ templates:
       file: ./src/elk/mapping.ts
       entities:
         - User
-        - UserLiquidityPositionDayData
+        - UserLPTransaction
         - LiquidityPosition
-        - LPTransfer
       abis:
         - name: Pair
           file: ./abis/uniswap/pair.json
@@ -178,9 +176,8 @@ templates:
       file: ./src/quickswap/mapping.ts
       entities:
         - User
-        - UserLiquidityPositionDayData
+        - UserLPTransaction
         - LiquidityPosition
-        - LPTransfer
       abis:
         - name: Pair
           file: ./abis/uniswap/pair.json
@@ -201,7 +198,7 @@ templates:
       file: ./src/sushiswap/mapping.ts
       entities:
         - User
-        - UserLiquidityPositionDayData
+        - UserLPTransaction
         - LiquidityPosition
       abis:
         - name: Pair
@@ -223,7 +220,7 @@ templates:
       file: ./src/cometh/mapping.ts
       entities:
         - User
-        - UserLiquidityPositionDayData
+        - UserLPTransaction
         - LiquidityPosition
       abis:
         - name: Pair
