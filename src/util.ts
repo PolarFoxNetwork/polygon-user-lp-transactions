@@ -12,24 +12,7 @@ export const ZERO_BI = BigInt.fromI32(0);
 export const ONE_BI = BigInt.fromI32(1);
 
 
-function getProviderName(poolProviderKey: string): string {
-  if (poolProviderKey == 'quickswap_matic') {
-    return 'Quickswap'
-  } else if (poolProviderKey == 'sushiswap_matic') {
-    return 'Sushiswap'
-  } else if (poolProviderKey == 'cometh_matic') {
-    return 'Cometh'
-  } else if (poolProviderKey == 'elk_matic') {
-    return 'Elk'
-  } else if (poolProviderKey == 'dfyn_matic') {
-    return 'Dfyn'
-  } else {
-    return ''
-  }
-}
-
-
-export function maybeCreateUserLpTransaction(event: ethereum.Event, userAddrs: Address, poolAddrs: Address): void {
+export function maybeCreateUserLpTransaction(event: ethereum.Event, userAddrs: Address, poolAddrs: Address, poolProviderKey: string): void {
   let userId = userAddrs.toHexString()
 
   let user = User.load(userId)
@@ -48,6 +31,7 @@ export function maybeCreateUserLpTransaction(event: ethereum.Event, userAddrs: A
     let transfer = new UserLPTransaction(id)
     transfer.user = user.id
     transfer.poolAddress = poolAddrs
+    transfer.poolProviderKey = poolProviderKey
     transfer.transactionHash = event.transaction.hash
     transfer.blockNumber = event.block.number
     transfer.timestamp = event.block.timestamp
@@ -76,7 +60,6 @@ export function maybeCreateUserLiquidityPosition(userAddrs: Address, poolAddrs: 
     lp.poolAddress = poolAddrs
     lp.user = user.id
     lp.poolProviderKey = poolProviderKey
-    lp.poolProviderName = getProviderName(poolProviderKey)
     lp.save()
   }
 }

@@ -13,7 +13,7 @@ export function handleTransfer(event: Transfer): void {
   let initiator = event.transaction.from;
 
   maybeCreateUserLiquidityPosition(initiator, poolAddress, PROVIDER_KEY)
-  maybeCreateUserLpTransaction(event, initiator, poolAddress)
+  maybeCreateUserLpTransaction(event, initiator, poolAddress, PROVIDER_KEY)
 
 }
 

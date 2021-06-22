@@ -131,15 +131,6 @@ export class LiquidityPosition extends Entity {
     this.set("poolAddress", Value.fromBytes(value));
   }
 
-  get poolProviderName(): string {
-    let value = this.get("poolProviderName");
-    return value.toString();
-  }
-
-  set poolProviderName(value: string) {
-    this.set("poolProviderName", Value.fromString(value));
-  }
-
   get poolProviderKey(): string {
     let value = this.get("poolProviderKey");
     return value.toString();
@@ -196,6 +187,15 @@ export class UserLPTransaction extends Entity {
 
   set poolAddress(value: Bytes) {
     this.set("poolAddress", Value.fromBytes(value));
+  }
+
+  get poolProviderKey(): string {
+    let value = this.get("poolProviderKey");
+    return value.toString();
+  }
+
+  set poolProviderKey(value: string) {
+    this.set("poolProviderKey", Value.fromString(value));
   }
 
   get transactionHash(): Bytes {

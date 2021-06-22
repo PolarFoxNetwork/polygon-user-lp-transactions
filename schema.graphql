@@ -8,7 +8,6 @@ type LiquidityPosition @entity {
   id: ID!
   user: User!
   poolAddress: Bytes!
-  poolProviderName: PoolProviderName!
   poolProviderKey: PoolProviderKey!
 }
 
@@ -16,6 +15,7 @@ type UserLPTransaction @entity {
   id: ID!
   user: User!
   poolAddress: Bytes!
+  poolProviderKey: PoolProviderKey!
   transactionHash: Bytes!
   blockNumber: BigInt!
   timestamp: BigInt!
@@ -26,14 +26,6 @@ type Exception @entity {
   addrs: Bytes!
   txHash: Bytes!
   message: String!
-}
-
-enum PoolProviderName {
-  Quickswap
-  Sushiswap
-  Cometh
-  Elk
-  Dfyn
 }
 
 enum PoolProviderKey {
