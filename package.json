@@ -2,22 +2,17 @@
   "name": "liquidity-vision-balances-subgraph",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create apyvision/amm_lp_share_subgraph --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create apyvision/amm_lp_share_subgraph --node http://127.0.0.1:8020",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy apyvision/amm_lp_share_subgraph --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-local": "graph deploy apyvision/amm_lp_share_subgraph --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+    "create:polarfox:stag": "graph create apyvision/amm_lp_share_subgraph --node http://3.14.127.210:8020",
+    "deploy:polarfox:stag": "graph deploy apyvision/amm_lp_share_subgraph --ipfs http://3.14.127.210:5001 --node http://3.14.127.210:8020",
+    "remove:polarfox:stag": "graph remove apyvision/amm_lp_share_subgraph --node http://3.14.127.210:8020",
+    "create:polarfox:prod": "graph create apyvision/amm_lp_share_subgraph --node http://3.142.134.9:8020",
+    "deploy:polarfox:prod": "graph deploy apyvision/amm_lp_share_subgraph --ipfs http://3.137.181.49:5001 --node http://3.142.134.9:8020",
+    "remove:polarfox:prod": "graph remove apyvision/amm_lp_share_subgraph --node http://3.142.134.9:8020"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.18.0",
     "@graphprotocol/graph-ts": "^0.18.0"
-  },
-  "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "babel-register": "^6.26.0",
-    "truffle": "^5.0.4",
-    "truffle-contract": "^4.0.5",
-    "truffle-hdwallet-provider": "^1.0.4"
   }
 }
